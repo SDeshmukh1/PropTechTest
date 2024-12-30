@@ -1,0 +1,127 @@
+TestCase1: Verify Successful Login
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LoginTest {
+    public static void main(String[] args) {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Step 1: Navigate to login page
+            driver.get("https://opensource-demo.orangehrmlive.com/");
+            driver.manage().window().maximize();
+
+            // Step 2: Enter username and password
+            WebElement username = driver.findElement(By.id("txtUsername"));
+            WebElement password = driver.findElement(By.id("txtPassword"));
+            username.sendKeys("Admin");
+            password.sendKeys("admin123");
+
+            // Step 3: Click login
+            WebElement loginButton = driver.findElement(By.id("btnLogin"));
+            loginButton.click();
+
+            // Step 4: Verify redirection to dashboard
+            String expectedUrl = "https://opensource-demo.orangehrmlive.com/index.php/dashboard";
+            if (driver.getCurrentUrl().equals(expectedUrl)) {
+                System.out.println("Test Passed: User successfully logged in.");
+            } else {
+                System.out.println("Test Failed: Redirection to dashboard failed.");
+            }
+        } finally {
+            // Close browser
+            driver.quit();
+        }
+    }
+}
+
+
+TestCase2: Verify Error Message for Invalid Login
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class InvalidLoginTest {
+    public static void main(String[] args) {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Step 1: Navigate to login page
+            driver.get("https://opensource-demo.orangehrmlive.com/");
+            driver.manage().window().maximize();
+
+            // Step 2: Enter invalid username and password
+            WebElement username = driver.findElement(By.id("txtUsername"));
+            WebElement password = driver.findElement(By.id("txtPassword"));
+            username.sendKeys("InvalidUser");
+            password.sendKeys("InvalidPassword");
+
+            // Step 3: Click login
+            WebElement loginButton = driver.findElement(By.id("btnLogin"));
+            loginButton.click();
+
+            // Step 4: Verify error message
+            WebElement errorMessage = driver.findElement(By.id("spanMessage"));
+            String expectedMessage = "Invalid credentials";
+            if (errorMessage.getText().equals(expectedMessage)) {
+                System.out.println("Test Passed: Correct error message displayed.");
+            } else {
+                System.out.println("Test Failed: Incorrect error message.");
+            }
+        } finally {
+            // Close browser
+            driver.quit();
+        }
+    }
+}
+
+
+TestCase3: Verify Username Field Validation
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class UsernameValidationTest {
+    public static void main(String[] args) {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Step 1: Navigate to login page
+            driver.get("https://opensource-demo.orangehrmlive.com/");
+            driver.manage().window().maximize();
+
+            // Step 2: Leave username empty and enter valid password
+            WebElement password = driver.findElement(By.id("txtPassword"));
+            password.sendKeys("admin123");
+
+            // Step 3: Click login
+            WebElement loginButton = driver.findElement(By.id("btnLogin"));
+            loginButton.click();
+
+            // Step 4: Verify error message
+            WebElement errorMessage = driver.findElement(By.id("spanMessage"));
+            String expectedMessage = "Username cannot be empty";
+            if (errorMessage.getText().equals(expectedMessage)) {
+                System.out.println("Test Passed: Correct error message displayed.");
+            } else {
+                System.out.println("Test Failed: Incorrect error message.");
+            }
+        } finally {
+            // Close browser
+            driver.quit();
+        }
+    }
+}
+
